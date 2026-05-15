@@ -57,6 +57,8 @@ public class DashboardUI extends JFrame {
         setTitle("ClockInPro Dashboard");
         setSize(1250, 720);
         setLocationRelativeTo(null);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
@@ -86,14 +88,16 @@ public class DashboardUI extends JFrame {
     private JPanel buildSidebar() {
 
         JPanel sidebar = new JPanel();
-        sidebar.setPreferredSize(new Dimension(240, 0));
+        // Increase width to 320 for better proportion on full screen
+        sidebar.setPreferredSize(new Dimension(320, 0));
         sidebar.setBackground(SIDEBAR);
         sidebar.setLayout(new BoxLayout(sidebar, BoxLayout.Y_AXIS));
 
         JLabel logo = new JLabel("ClockInPro");
         logo.setForeground(TEXT);
-        logo.setFont(new Font("Georgia", Font.BOLD, 26));
-        logo.setBorder(new EmptyBorder(35, 30, 40, 10));
+        // Increase font size and padding
+        logo.setFont(new Font("Georgia", Font.BOLD, 32));
+        logo.setBorder(new EmptyBorder(45, 40, 50, 10));
 
         sidebar.add(logo);
 
@@ -105,7 +109,8 @@ public class DashboardUI extends JFrame {
         sidebar.add(Box.createVerticalGlue());
 
         JButton logoutBtn = createStyledButton("Logout");
-        logoutBtn.setMaximumSize(new Dimension(170, 45));
+        // Make the logout button wider
+        logoutBtn.setMaximumSize(new Dimension(220, 50));
         logoutBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         logoutBtn.addActionListener(e -> {
@@ -114,7 +119,8 @@ public class DashboardUI extends JFrame {
         });
 
         sidebar.add(logoutBtn);
-        sidebar.add(Box.createVerticalStrut(30));
+        // Add more space at the bottom
+        sidebar.add(Box.createVerticalStrut(40));
 
         return sidebar;
     }
@@ -125,13 +131,15 @@ public class DashboardUI extends JFrame {
 
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBackground(SIDEBAR);
-        panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 55));
-        panel.setBorder(new EmptyBorder(5, 20, 5, 20));
+        // Taller nav items
+        panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 65));
+        // More padding
+        panel.setBorder(new EmptyBorder(8, 40, 8, 20));
         panel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         JLabel label = new JLabel(text);
         label.setForeground(TEXT);
-        label.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+        label.setFont(new Font("Segoe UI", Font.PLAIN, 18));
 
         panel.add(label, BorderLayout.CENTER);
 

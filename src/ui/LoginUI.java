@@ -53,80 +53,52 @@ public class LoginUI extends JFrame {
     // ── Left Panel ───────────────────────────────────────────────────────────
     private JPanel buildLeftPanel() {
         JPanel panel = new JPanel(new BorderLayout()) {
+            private Image bgImage = loadImage();
+
+            private Image loadImage() {
+                // 1. Try loading from classpath (Best practice, works in JARs and properly configured IDEs)
+                java.net.URL imgURL = getClass().getResource("/assests/register.png");
+                if (imgURL != null) return new ImageIcon(imgURL).getImage();
+
+                // 2. Fallback: Running from project root
+                java.io.File f = new java.io.File("assests/register.png");
+                if (f.exists()) return new ImageIcon(f.getAbsolutePath()).getImage();
+
+                // 3. Fallback: Running from a 'bin' or 'out' subdirectory
+                f = new java.io.File("../assests/register.png");
+                if (f.exists()) return new ImageIcon(f.getAbsolutePath()).getImage();
+
+                return null;
+            }
+
             @Override protected void paintComponent(Graphics g) {
-                Graphics2D g2 = (Graphics2D) g.create();
-                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                // Gradient background
-                GradientPaint gp = new GradientPaint(0, 0, new Color(205, 200, 194),
-                        getWidth(), getHeight(), new Color(190, 185, 178));
-                g2.setPaint(gp);
-                g2.fillRect(0, 0, getWidth(), getHeight());
-                g2.dispose();
+                super.paintComponent(g);
+                if (bgImage != null && bgImage.getWidth(null) > 0) {
+                    Graphics2D g2 = (Graphics2D) g.create();
+                    g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+                    double panelAspect = (double) getWidth() / getHeight();
+                    double imgAspect = (double) bgImage.getWidth(null) / bgImage.getHeight(null);
+                    int drawW = getWidth();
+                    int drawH = getHeight();
+                    int x = 0;
+                    int y = 0;
+                    if (panelAspect > imgAspect) {
+                        drawH = (int) (getWidth() / imgAspect);
+                        y = (getHeight() - drawH) / 2;
+                    } else {
+                        drawW = (int) (getHeight() * imgAspect);
+                        x = (getWidth() - drawW) / 2;
+                    }
+                    g2.drawImage(bgImage, x, y, drawW, drawH, this);
+                    g2.dispose();
+                } else {
+                    g.setColor(new Color(220, 217, 212));
+                    g.fillRect(0, 0, getWidth(), getHeight());
+                }
             }
         };
         panel.setBorder(new EmptyBorder(0, 0, 0, 0));
-
-        // Text block at bottom-left
-        JPanel textBlock = new JPanel();
-        textBlock.setLayout(new BoxLayout(textBlock, BoxLayout.Y_AXIS));
-        textBlock.setOpaque(false);
-        textBlock.setBorder(new EmptyBorder(0, 40, 55, 20));
-
-        JLabel welcome = new JLabel("WELCOME TO");
-        welcome.setFont(new Font("Georgia", Font.PLAIN, 16));
-        welcome.setForeground(new Color(70, 65, 60));
-        welcome.setAlignmentX(Component.LEFT_ALIGNMENT);
-
-        JLabel brand = new JLabel("CLOCKINPRO");
-        brand.setFont(new Font("Georgia", Font.BOLD, 34));
-        brand.setForeground(TEXT_DARK);
-        brand.setAlignmentX(Component.LEFT_ALIGNMENT);
-
-        JLabel tagline = new JLabel("<html>Smart Attendance,<br>Better Management.</html>");
-        tagline.setFont(new Font("Georgia", Font.PLAIN, 15));
-        tagline.setForeground(TEXT_MID);
-        tagline.setAlignmentX(Component.LEFT_ALIGNMENT);
-
-        textBlock.add(welcome);
-        textBlock.add(Box.createVerticalStrut(4));
-        textBlock.add(brand);
-        textBlock.add(Box.createVerticalStrut(10));
-        textBlock.add(tagline);
-
-        panel.add(textBlock, BorderLayout.SOUTH);
-
-        // Clock icon top-left
-        JPanel clockWrap = new JPanel(new FlowLayout(FlowLayout.LEFT, 30, 28));
-        clockWrap.setOpaque(false);
-        clockWrap.add(buildClockIcon());
-        panel.add(clockWrap, BorderLayout.NORTH);
-
         return panel;
-    }
-
-    private JComponent buildClockIcon() {
-        return new JComponent() {
-            { setPreferredSize(new Dimension(72, 72)); }
-            @Override protected void paintComponent(Graphics g) {
-                Graphics2D g2 = (Graphics2D) g.create();
-                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                int d = 68;
-                // Circle
-                g2.setColor(new Color(55, 50, 48));
-                g2.fillOval(2, 2, d, d);
-                // Hour hand
-                g2.setColor(Color.WHITE);
-                g2.setStroke(new BasicStroke(2.8f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
-                int cx = 2 + d / 2, cy = 2 + d / 2;
-                g2.drawLine(cx, cy, cx - 10, cy - 16);
-                // Minute hand
-                g2.drawLine(cx, cy, cx + 14, cy - 6);
-                // Center dot
-                g2.setColor(new Color(200, 100, 80));
-                g2.fillOval(cx - 3, cy - 3, 6, 6);
-                g2.dispose();
-            }
-        };
     }
 
     // ── Right Panel ──────────────────────────────────────────────────────────
