@@ -206,9 +206,6 @@ public class DashboardUI extends JFrame {
 
         //cards.add(createCard("Today's Status", "Not Checked In"));
         cards.add(buildStatusCard());
-//        cards.add(createCard("Attendance", "0 Days Present"));
-//        cards.add(createCard("Payroll", "₹0 This Month"));
-//        cards.add(createCard("Working Hours", "0 Hours"));
         attendanceCardLabel = new JLabel("0%");
         payrollCardLabel = new JLabel("₹0");
         hoursCardLabel = new JLabel("0 Hours");
@@ -524,76 +521,6 @@ public class DashboardUI extends JFrame {
         return page;
     }
 
-//        JPanel page = createPage("Attendance");
-//
-//        JPanel center = new JPanel();
-//        center.setOpaque(false);
-//
-//        JButton checkInBtn = actionButton("Check In");
-//        checkInBtn.addActionListener(e -> {
-//
-//            try {
-//                Connection conn = DatabaseConnection.getConnection();
-//
-//                String query = "INSERT INTO attendance (username, date, check_in) VALUES (?, CURDATE(), CURTIME())";
-//
-//                PreparedStatement ps = conn.prepareStatement(query);
-//
-//                ps.setString(1, username);
-//
-//                ps.executeUpdate();
-//
-//                JOptionPane.showMessageDialog(this, "Checked In Successfully!");
-//
-//                loadTodayAttendance();
-//
-//                conn.close();
-//
-//            } catch (Exception ex) {
-//                ex.printStackTrace();
-//            }
-//        });
-//
-//
-//        JButton checkOutBtn = actionButton("Check Out");
-//        checkOutBtn.addActionListener(e -> {
-//
-//            try {
-//                Connection conn = DatabaseConnection.getConnection();
-//
-//                String query = "UPDATE attendance SET check_out = CURTIME() WHERE username = ? AND date = CURDATE()";
-//
-//                PreparedStatement ps = conn.prepareStatement(query);
-//
-//                ps.setString(1, username);
-//
-//                int rows = ps.executeUpdate();
-//
-//                if (rows > 0) {
-//
-//                    JOptionPane.showMessageDialog(this, "Checked Out Successfully!");
-//
-//                    loadTodayAttendance();
-//
-//                } else {
-//
-//                    JOptionPane.showMessageDialog(this, "No check-in found!");
-//                }
-//
-//                conn.close();
-//
-//            } catch (Exception ex) {
-//                ex.printStackTrace();
-//            }
-//        });
-//
-//        center.add(checkInBtn);
-//        center.add(checkOutBtn);
-//
-//        page.add(center, BorderLayout.CENTER);
-//
-//        return page;
-
     private void loadAttendanceTable() {
 
         try {
@@ -897,24 +824,6 @@ public class DashboardUI extends JFrame {
         ));
 
         rightCard.setLayout(new GridLayout(6, 2, 25, 25));
-
-//        rightCard.add(profileTitle("Full Name"));
-//        rightCard.add(profileValue("Hiten Agarwal"));
-//
-//        rightCard.add(profileTitle("Username"));
-//        rightCard.add(profileValue(username));
-//
-//        rightCard.add(profileTitle("Department"));
-//        rightCard.add(profileValue("Engineering"));
-//
-//        rightCard.add(profileTitle("Role"));
-//        rightCard.add(profileValue("Employee"));
-//
-//        rightCard.add(profileTitle("Email"));
-//        rightCard.add(profileValue("hiten@gmail.com"));
-//
-//        rightCard.add(profileTitle("Phone"));
-//        rightCard.add(profileValue("+91 9876543210"));
 
         fullNameValue = profileValue("--");
         usernameValue = profileValue("--");

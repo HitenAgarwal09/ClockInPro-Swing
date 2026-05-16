@@ -219,25 +219,18 @@ public class LoginUI extends JFrame {
                 ResultSet rs = ps.executeQuery();
 
                 if (rs.next()) {
+                    String role = rs.getString("role");
                     JOptionPane.showMessageDialog(this, "Login Successful!");
-//                    try {
-//
-//                        String query2 = "INSERT INTO attendance (username, date, check_in) VALUES (?, CURDATE(), CURTIME())";
-//
-//                        PreparedStatement ps2 = conn.prepareStatement(query2);
-//
-//                        ps2.setString(1, username);
-//
-//                        ps2.executeUpdate();
-//
-//                        System.out.println("Check-in saved!");
-//
-//                    } catch (Exception ex) {
-//                        ex.printStackTrace();
-//                    }
 
                     // 👉 NEXT (later)
-                    new DashboardUI(username);
+                    if (role.equalsIgnoreCase("admin")) {
+
+                        new AdminDashboardUI(username);
+
+                    } else {
+
+                        new DashboardUI(username);
+                    }
                     dispose();
 
                 } else {
@@ -307,21 +300,6 @@ public class LoginUI extends JFrame {
         };
     }
 
-    // ── Field Row ────────────────────────────────────────────────────────────
-//    private JPanel buildField(String label, String placeholder, boolean isPassword) {
-//        JPanel row = new JPanel(new BorderLayout(14, 0));
-//        row.setOpaque(false);
-//        row.setAlignmentX(Component.LEFT_ALIGNMENT);
-//        row.setMaximumSize(new Dimension(Short.MAX_VALUE, 42));
-//
-//        JLabel lbl = fieldLabel(label);
-//        row.add(lbl, BorderLayout.WEST);
-//        lbl.setPreferredSize(new Dimension(130, 36));
-//
-//        JTextField tf = styledTextField(placeholder);
-//        row.add(tf, BorderLayout.CENTER);
-//        return row;
-//    }
     private JPanel buildField(String label, JTextField tf) {
         JPanel row = new JPanel(new BorderLayout(14, 0));
         row.setOpaque(false);
@@ -348,21 +326,6 @@ public class LoginUI extends JFrame {
         lbl.setPreferredSize(new Dimension(130, 36));
         row.add(lbl, BorderLayout.WEST);
 
-//        JPasswordField pf = new JPasswordField() {
-//            @Override protected void paintComponent(Graphics g) {
-//                super.paintComponent(g);
-//                if (getPassword().length == 0) {
-//                    Graphics2D g2p = (Graphics2D) g.create();
-//                    g2p.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-//                    g2p.setColor(TEXT_LIGHT);
-//                    g2p.setFont(getFont());
-//                    FontMetrics fm = g2p.getFontMetrics();
-//                    int y = (getHeight() - fm.getHeight()) / 2 + fm.getAscent();
-//                    g2p.drawString(placeholder, getInsets().left, y);
-//                    g2p.dispose();
-//                }
-//            }
-//        };
         passField = new JPasswordField() {
             @Override protected void paintComponent(Graphics g) {
                 super.paintComponent(g);

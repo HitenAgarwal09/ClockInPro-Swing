@@ -538,28 +538,7 @@ public class RegisterUI  extends JFrame {
         return l;
     }
 
-//    private JTextField styledTextField(String placeholder) {
-//        JTextField tf = new JTextField(placeholder) {
-//            @Override protected void paintComponent(Graphics g) {
-//                Graphics2D g2 = (Graphics2D) g.create();
-//                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-//                g2.setColor(FIELD_BG);
-//                g2.fillRoundRect(0, 0, getWidth(), getHeight(), 8, 8);
-//                g2.dispose();
-//                super.paintComponent(g);
-//            }
-//        };
-//        styleComponent(tf);
-//        tf.setForeground(TEXT_LIGHT);
-//        tf.addFocusListener(new FocusAdapter() {
-//            @Override public void focusGained(FocusEvent e) {
-//                if (tf.getText().equals(placeholder)) { tf.setText(""); tf.setForeground(TEXT_DARK); }
-//            }
-//            @Override public void focusLost(FocusEvent e) {
-//                if (tf.getText().isEmpty()) { tf.setText(placeholder); tf.setForeground(TEXT_LIGHT); }
-//            }
-//        });
-//        return tf;
+
 //    }
 
     private JTextField styledTextField(String placeholder) {
